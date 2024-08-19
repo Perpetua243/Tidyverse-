@@ -1,0 +1,198 @@
+---
+title: " movies tidyverse b3 makeup class"
+author: "perpetua odili"
+date: "7/29/2024"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+
+```
+
+```{r}
+
+movies <- read.csv(file.choose())
+```
+
+```{r}
+View(movies)
+```
+
+
+```{r}
+str(movies)
+```
+
+```{r}
+## convert from character data type to date data type using
+## lubridate dmy() function
+
+movies$release_date <- dmy(movies$release_date)
+```
+
+```{r}
+
+str(movies)
+```
+
+
+```{r}
+movies$year <- year(movies$release_date)
+```
+
+```{r}
+
+movies$month <- month(movies$release_date,label = T)
+```
+
+```{r}
+movies$day <- day(movies$release_date)
+```
+
+
+```{r}
+movies$dayname <- wday(movies$release_date, label = T)
+```
+
+```{r Q1}
+### CREATE A NEW COLUMN CALLED profit THAT SHOWS THE PROFIT MADE PER 
+### MOVIE. TO GET THIS SUBTRACT BUDGET FROM BOX_OFFICE
+
+movies <-movies %>%
+  mutate(profit=box_office - budget)
+View(movies)
+```
+
+
+```{r Q2 }
+
+### SHOW THE TOTAL NUMBER OF MOVIES PRODUCED IN EACH COUNTRY
+movies %>%
+  group_by(country) %>%
+  summarise(count = n())
+```
+
+```{r Q3}
+
+### SHOW THE NUMBER OF MOVIES PRODUCED IN EACH GENRE
+movies %>%
+  group_by(genre) %>%
+  summarise(count = n())
+```
+
+
+```{r Q4}
+
+### SHOW ALL MOVIES PRODUCED THAT HAVE LANGUAGES ENGLISH AND FRENCH
+movies %>%
+  filter(Language >="English"& Language <="French") %>%
+  group_by(title,Language) %>%
+  summarise()
+```
+
+
+```{r Q5 }
+### SHOW THE TOTAL PROFIT MADE BY EACH COUNTRY
+library(dplyr)
+
+movies %>%
+  group_by(country) %>%
+  summarise(profit = sum(profit, na.rm = TRUE))
+
+```
+
+
+
+
+```{r Q6 }
+### SHOW THE TOP 5 COUNTRIES IN TERMS OF PROFIT MADE
+library(dplyr)
+
+movies %>%
+  group_by(country) %>%
+  summarise(profits = sum(profit, na.rm = TRUE)) %>%
+  arrange(desc(profits)) %>%
+  head(5)
+
+```
+
+
+```{r Q7 }
+### SHOW THE TOP 5 COUNTRIES IN TERMS OF NUMBER OF MOVIES PRODUCED
+### IN THE COUNTRIES
+library(dplyr)
+
+movies %>%
+  group_by(country) %>%  
+  summarise(num_movies = n()) %>%  
+  arrange(desc(num_movies)) %>% 
+  head(5)  
+
+
+```
+
+
+
+```{r Q8 }
+### SHOW ALL THE MOVIES THAT ARE PRODUCED IN THE YEAR 2000 UPWARDS 
+### WHOSE GENRE IS ADVENTURE
+
+movies %>%
+  filter(year >="2000" & genre == "adventure")%>%
+  group_by(title,genre,year)%>%
+  summarise()
+```
+
+
+
+```{r Q9 }
+
+### SHOW ALL THE MOVIES THAT GOT MORE THAN 3 NOMINATIONS AND ARE 
+### PRODUCED IN THE UNITED STATES.
+
+movies %>%
+  filter(nominations >="3" & country == "united states")%>%
+  group_by(title,genre,country,nominations)%>%
+  summarise()
+
+```
+
+
+```{r Q10}
+### SHOW ALL THE MOVIES THAT HAD MORE THAN 5 OSCAR WINS
+movies %>%
+  filter(oscar_wins >="5")%>%
+  group_by(title,genre,country,oscar_wins)%>%
+  summarise()
+```
+
+
+```{r Q11 }
+### SHOW ALL THE MOVIES THAT MADE LOSS AND ARE PRODUCED IN THE 
+### UNITED STATES.
+
+movies %>%
+  filter(profit <="1")%>%
+  group_by(title,genre,country,profit)%>%
+  summarise()
+```
+
+```{r}
+#just testng the code in q11 outcome in another way to see the difference
+library(dplyr)
+
+movies %>%
+  filter(profit <= 1) %>% 
+  group_by(title, genre, country, profit) %>% 
+  summarise(count = n())
+
+```
+
+
+
+```{r Q12}
+
+```
+
