@@ -1,0 +1,133 @@
+---
+title: "tidyverse makeup class"
+author: "DA class"
+date: "7/29/2024"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+
+```
+
+```{r}
+
+movies <- read.csv(file.choose())
+```
+
+```{r}
+str(movies)
+```
+
+```{r}
+## convert from character data type to date data type using
+## lubridate dmy() function
+
+movies$release_date <- dmy(movies$release_date)
+```
+
+```{r}
+
+str(movies)
+```
+
+
+```{r}
+movies$year <- year(movies$release_date)
+```
+
+```{r}
+
+movies$month <- month(movies$release_date,label = T)
+```
+
+```{r}
+movies$day <- day(movies$release_date)
+```
+
+
+```{r}
+movies$dayname <- wday(movies$release_date, label = T)
+```
+
+```{r Q1}
+### CREATE A NEW COLUMN CALLED profit THAT SHOWS THE PROFIT MADE PER 
+### MOVIE. TO GET THIS SUBTRACT BUDGET FROM BOX_OFFICE
+
+
+```
+
+
+```{r Q2 }
+
+### SHOW THE TOTAL NUMBER OF MOVIES PRODUCED IN EACH COUNTRY
+
+```
+
+```{r Q3}
+
+### SHOW THE NUMBER OF MOVIES PRODUCED IN EACH GENRE
+
+```
+
+
+```{r Q4}
+
+### SHOW ALL MOVIES PRODUCED THAT HAVE LANGUAGES ENGLISH AND FRENCH
+```
+
+```{r Q5 }
+### SHOW THE TOTAL PROFIT MADE BY EACH COUNTRY
+
+```
+
+
+```{r Q6 }
+### SHOW THE TOP 5 COUNTRIES IN TERMS OF PROFIT MADE
+
+```
+
+
+```{r Q7 }
+### SHOW THE TOP 5 COUNTRIES IN TERMS OF NUMBER OF MOVIES PRODUCED
+### IN THE COUNTRIES
+
+```
+
+```{r Q8 }
+### SHOW ALL THE MOVIES THAT ARE PRODUCED IN THE YEAR 2000 UPWARDS 
+### WHOSE GENRE IS ADVENTURE
+
+
+```
+
+
+```{r Q9 }
+
+### SHOW ALL THE MOVIES THAT GOT MORE THAN 3 NOMINATIONS AND ARE 
+### PRODUCED IN THE UNITED STATES.
+
+
+
+```
+
+
+```{r Q10}
+### SHOW ALL THE MOVIES THAT HAD MORE THAN 5 OSCAR WINS
+
+```
+
+
+```{r Q11 }
+### SHOW ALL THE MOVIES THAT MADE LOSS AND ARE PRODUCED IN THE 
+### UNITED STATES.
+
+
+```
+
+
+```{r Q12}
+
+```
+
